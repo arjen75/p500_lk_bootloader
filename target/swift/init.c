@@ -77,17 +77,17 @@ static struct ptentry board_part_list[] = {
 	},
 	{
 		.start = 611,
-		.length = 1200 /* 1200 - 150MB or 1120 - 140MB */,
+		.length = 1280 /* 1280 - 160MB or 1120 - 140MB */,
 		.name = "system",
 	},
 	{
-		.start = 1811,
+		.start = 1891,
 		.length = 22 /* 1.5MB */,
 		.name = "lgdrm",
 	},
 	{
-		.start = 1833,
-		.length = 1868 /* 1788 - 243.5MB or 1868 - 233.5MB */,
+		.start = 1913,
+		.length = 1788 /* 1788 - 223.5MB or 1868 - 233.5MB */,
 		.name = "userdata",
 	},
 	{
