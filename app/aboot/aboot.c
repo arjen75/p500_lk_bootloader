@@ -47,7 +47,7 @@
 #include "bootimg.h"
 #include "fastboot.h"
 
-#define DEFAULT_CMDLINE "mem=100M console=null";
+#define DEFAULT_CMDLINE "mem=214M console=ttyMSM2,115200n8 androidboot.hardware=swift";
 
 #ifdef MEMBASE
 #define EMMC_BOOT_IMG_HEADER_ADDR (0xFF000+(MEMBASE))
@@ -60,6 +60,8 @@
 
 static const char *emmc_cmdline = " androidboot.emmc=true";
 static const char *battchg_pause = " androidboot.battchg_pause=true";
+
+static const char *append_cmdline = " uart_console=disable lge.hreset=off lge.reboot=pwroff lge.lcd=on";
 
 static struct udc_device surf_udc_device = {
 	.vendor_id	= 0x18d1,
@@ -152,6 +154,9 @@ void boot_linux(void *kernel, unsigned *tags,
 	if (target_is_emmc_boot()) {
 		cmdline_len += strlen(emmc_cmdline);
 	}
+
+	cmdline_len += strlen(append_cmdline);
+
         if (target_pause_for_battery_charge()) {
                 pause_at_bootup = 1;
                 cmdline_len += strlen(battchg_pause);
@@ -180,6 +185,12 @@ void boot_linux(void *kernel, unsigned *tags,
                         if (have_cmdline) --dst;
 			while ((*dst++ = *src++));
 		}
+
+		src = append_cmdline;
+		if (have_cmdline) --dst;
+		have_cmdline = 1;
+		while ((*dst++ = *src++));
+
 		ptr += (n / 4);
 	}
 
