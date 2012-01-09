@@ -47,7 +47,7 @@
 #include "bootimg.h"
 #include "fastboot.h"
 
-#define DEFAULT_CMDLINE "mem=214M console=ttyMSM2,115200n8 androidboot.hardware=swift";
+#define DEFAULT_CMDLINE "mem=214M console=null";
 
 #ifdef MEMBASE
 #define EMMC_BOOT_IMG_HEADER_ADDR (0xFF000+(MEMBASE))
@@ -511,7 +511,7 @@ fastboot:
 	fastboot_publish("product", "swift");
 	fastboot_publish("kernel", "lk");
 
-	fastboot_init(target_get_scratch_address(), 140 * 1024 * 1024);
+	fastboot_init(target_get_scratch_address(), 210 * 1024 * 1024);
 	udc_start();
         target_battery_charging_enable(1, 0);
 }
